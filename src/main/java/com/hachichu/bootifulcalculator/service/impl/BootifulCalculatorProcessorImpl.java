@@ -2,8 +2,8 @@ package com.hachichu.bootifulcalculator.service.impl;
 
 import com.hachichu.bootifulcalculator.dto.CalculateRequest;
 import com.hachichu.bootifulcalculator.dto.CalculateResponse;
-import com.hachichu.bootifulcalculator.service.AbstractBootifulCalculatorProcessor;
 import com.hachichu.bootifulcalculator.enums.Type;
+import com.hachichu.bootifulcalculator.service.AbstractBootifulCalculatorProcessor;
 import com.hachichu.bootifulcalculator.utils.CalculateUtil;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +20,18 @@ public class BootifulCalculatorProcessorImpl extends AbstractBootifulCalculatorP
 
     @Override
     public CalculateResponse calculate(CalculateRequest request) {
-        int length = request.getValues().length;
-
         if (request.getType().equals(Type.INTEGER)) {
-            BigInteger result = CalculateUtil.process(Arrays.copyOf(request.getValues(), length, BigInteger[].class),
-                    request.getOperation().getIntegerOperator());
+            BigInteger[] values = Arrays.copyOf(
+                    Arrays.stream(request.getValues()).map(BigDecimal::toBigInteger).toArray(),
+                    request.getValues().length, BigInteger[].class);
 
+            BigInteger result = CalculateUtil.process(values, request.getOperation().getIntegerOperator());
             return CalculateResponse.builder()
                     .result(result)
                     .build();
         }
 
-        BigDecimal result = CalculateUtil.process(Arrays.copyOf(request.getValues(), length, BigDecimal[].class),
-                request.getOperation().getDecimalOperator());
+        BigDecimal result = CalculateUtil.process(request.getValues(), request.getOperation().getDecimalOperator());
         return CalculateResponse.builder()
                 .result(result)
                 .build();

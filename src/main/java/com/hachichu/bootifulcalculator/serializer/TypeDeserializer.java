@@ -21,6 +21,6 @@ public class TypeDeserializer extends StdDeserializer<Type> {
 
     @Override
     public Type deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        return Objects.nonNull(jsonParser.getValueAsString()) ? Type.valueOf(jsonParser.getValueAsString()) : null;
+        return Objects.nonNull(jsonParser.getValueAsString()) ? Type.parse(jsonParser.getValueAsString()) : null;
     }
 }

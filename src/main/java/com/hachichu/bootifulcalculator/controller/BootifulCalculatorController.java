@@ -3,8 +3,10 @@ package com.hachichu.bootifulcalculator.controller;
 import com.hachichu.bootifulcalculator.dto.CalculateRequest;
 import com.hachichu.bootifulcalculator.dto.CalculateResponse;
 import com.hachichu.bootifulcalculator.service.AbstractBootifulCalculatorProcessor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by djames
  * 06/03/2021  5:20 PM
  */
+@Slf4j
 @RequestMapping("/bootiful-calculator")
 @RestController
 public class BootifulCalculatorController {
@@ -23,7 +26,8 @@ public class BootifulCalculatorController {
     }
 
     @PostMapping("/calculate")
-    public ResponseEntity<CalculateResponse> calculate(CalculateRequest request) {
+    public ResponseEntity<CalculateResponse> calculate(@RequestBody CalculateRequest request) {
+        log.info("Request: {}", request);
         return ResponseEntity.ok(processor.calculate(request));
     }
 }

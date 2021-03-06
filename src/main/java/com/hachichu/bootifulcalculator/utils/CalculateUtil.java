@@ -16,12 +16,13 @@ public class CalculateUtil {
 
     public static BigDecimal process(BigDecimal[] decimals, BinaryOperator<BigDecimal> operator) {
         return Arrays.stream(decimals)
-                .reduce(BigDecimal.ZERO, operator);
+                .skip(1)
+                .reduce(decimals[0], operator);
     }
 
     public static BigInteger process(BigInteger[] numbers, BinaryOperator<BigInteger> operator) {
         return Arrays.stream(numbers)
-                .reduce(BigInteger.ZERO, operator);
+                .skip(1)
+                .reduce(numbers[0], operator);
     }
-
 }

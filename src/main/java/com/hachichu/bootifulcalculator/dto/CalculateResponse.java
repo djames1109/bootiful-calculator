@@ -1,5 +1,6 @@
 package com.hachichu.bootifulcalculator.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -7,6 +8,8 @@ import lombok.Data;
  * 06/03/2021  5:30 PM
  */
 @Data
+@Builder
 public class CalculateResponse {
 
+    private Number result;
 }

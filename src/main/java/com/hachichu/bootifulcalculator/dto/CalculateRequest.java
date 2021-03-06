@@ -1,9 +1,11 @@
 package com.hachichu.bootifulcalculator.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.hachichu.bootifulcalculator.enums.Operation;
+import com.hachichu.bootifulcalculator.enums.Type;
+import com.hachichu.bootifulcalculator.serializer.OperationDeserializer;
+import com.hachichu.bootifulcalculator.serializer.TypeDeserializer;
 import lombok.Data;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * Created by djames
@@ -12,4 +14,9 @@ import java.util.List;
 @Data
 public class CalculateRequest {
 
+    private Number[] values;
+    @JsonDeserialize(using = OperationDeserializer.class)
+    private Operation operation;
+    @JsonDeserialize(using = TypeDeserializer.class)
+    private Type type;
 }

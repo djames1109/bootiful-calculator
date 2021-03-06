@@ -1,6 +1,8 @@
 package com.hachichu.bootifulcalculator.controller;
 
 import com.hachichu.bootifulcalculator.dto.CalculateRequest;
+import com.hachichu.bootifulcalculator.dto.CalculateResponse;
+import com.hachichu.bootifulcalculator.service.AbstractBootifulCalculatorProcessor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BootifulCalculatorController {
 
+    private final AbstractBootifulCalculatorProcessor processor;
+
+    public BootifulCalculatorController(AbstractBootifulCalculatorProcessor processor) {
+        this.processor = processor;
+    }
+
     @PostMapping("/calculate")
-    public ResponseEntity<Object> calculate(CalculateRequest request) {
-        return null;
+    public ResponseEntity<CalculateResponse> calculate(CalculateRequest request) {
+        return ResponseEntity.ok(processor.calculate(request));
     }
 }

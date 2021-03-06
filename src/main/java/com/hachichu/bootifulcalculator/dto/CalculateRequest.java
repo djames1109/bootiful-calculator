@@ -1,6 +1,8 @@
 package com.hachichu.bootifulcalculator.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.hachichu.bootifulcalculator.constraints.NotDivisionByZero;
+import com.hachichu.bootifulcalculator.constraints.ValidIntegerValues;
 import com.hachichu.bootifulcalculator.enums.Operation;
 import com.hachichu.bootifulcalculator.enums.Type;
 import com.hachichu.bootifulcalculator.serializer.OperationDeserializer;
@@ -20,6 +22,8 @@ public class CalculateRequest {
 
     @NotEmpty
     @NotNull
+    @ValidIntegerValues
+    @NotDivisionByZero
     private BigDecimal[] values;
     @NotNull
     @JsonDeserialize(using = OperationDeserializer.class)

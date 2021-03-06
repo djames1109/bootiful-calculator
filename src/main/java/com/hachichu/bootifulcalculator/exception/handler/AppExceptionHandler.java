@@ -50,7 +50,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
         log.error("Unknown Exception encountered. ", e);
         ErrorResponse response = ErrorResponse.builder()
-                .error(e.getMessage())
+                .error("The service is currently not available. Please Try again later.")
                 .build();
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

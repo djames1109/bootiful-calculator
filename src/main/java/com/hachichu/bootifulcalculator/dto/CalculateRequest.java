@@ -7,6 +7,8 @@ import com.hachichu.bootifulcalculator.serializer.OperationDeserializer;
 import com.hachichu.bootifulcalculator.serializer.TypeDeserializer;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -16,9 +18,13 @@ import java.math.BigDecimal;
 @Data
 public class CalculateRequest {
 
+    @NotEmpty
+    @NotNull
     private BigDecimal[] values;
+    @NotNull
     @JsonDeserialize(using = OperationDeserializer.class)
     private Operation operation;
+    @NotNull
     @JsonDeserialize(using = TypeDeserializer.class)
     private Type type;
 }

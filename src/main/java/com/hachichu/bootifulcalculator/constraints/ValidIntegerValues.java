@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  * Created by djames
  * 07/03/2021  1:23 AM
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.CONSTRUCTOR})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ValidIntegerValuesValidator.class)
 public @interface ValidIntegerValues {

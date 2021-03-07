@@ -9,11 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Objects;
 
 /**
  * Created by djames
@@ -27,8 +30,11 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         log.debug("MethodArgumentNotValidException encountered: ", ex);
-        FieldError error = ex.getBindingResult().getFieldErrors().get(0);
-        String errorMessage = String.format("%s %s", error.getField(), error.getDefaultMessage());
+        FieldError fieldError = ex.getBindingResult().getFieldError();
+        ObjectError objectError = ex.getBindingResult().getAllErrors().get(0);
+        String errorMessage = String.format("%s %s", Objects.isNull(fieldError) ? objectError.getObjectName() : fieldError.getField(),
+                Objects.isNull(fieldError) ? objectError.getDefaultMessage() : fieldError.getDefaultMessage());
+
         ErrorResponse response = ErrorResponse.builder()
                 .error(errorMessage)
                 .build();

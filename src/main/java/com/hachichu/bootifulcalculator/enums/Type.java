@@ -23,6 +23,6 @@ public enum Type {
         return Arrays.stream(values())
                 .filter(t -> t.getValue().equalsIgnoreCase(value))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Invalid Type.")); //create custom exception
+                .orElseThrow(() -> new RuntimeException("invalid type")); //create custom exception
     }
 }

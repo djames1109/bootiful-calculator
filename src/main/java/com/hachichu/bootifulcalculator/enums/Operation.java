@@ -28,7 +28,7 @@ public enum Operation {
         return Arrays.stream(values())
                 .filter(o -> o.getValue().equalsIgnoreCase(value))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Invalid Operator.")); // create custom exception
+                .orElseThrow(() -> new RuntimeException("invalid operation")); // create custom exception
 
     }
 }
